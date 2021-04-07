@@ -4,9 +4,9 @@
     <label for="firstname">First Name:<br> </label>
     <input id="firstname" name="firstname" class="form-control" [(ngModel)]='Employee.firstname'
     required #nameField="ngModel" (blur)="onBlur(nameField)"
-    [class.field-error]="form.submitted && nameField.invalid">
-    <div [hidden]="!form.submitted || nameField.valid" class="alert alert-danger">
-      Enter valid first name
+    [class.field-error]=" nameField.invalid">
+    <div [hidden]="nameField.valid ||nameField.untouched" class="alert alert-danger">
+      Enter first name
     </div>
   </div>
   <br>
@@ -14,9 +14,9 @@
     <label for="lastname">Last Name:<br> </label>
     <input id="lastname" name="lastname" class="form-control" [(ngModel)]='Employee.lastname'
     required #lastnameField="ngModel" (blur)="onBlur(lastnameField)"
-    [class.field-error]="form.submitted && lastnameField.invalid">
-    <div [hidden]="!form.submitted || lastnameField.valid" class="alert alert-danger">
-      Enter valid last name
+    [class.field-error]="lastnameField.invalid">
+    <div [hidden]=" lastnameField.valid || lastnameField.untouched" class="alert alert-danger">
+      Enter last name
     </div>
   </div>
   <br>
@@ -24,8 +24,8 @@
     <label for="emailid">Email:<br> </label>
     <input id="emailid" name="emailid" type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" [(ngModel)]='Employee.emailid'
     required #emailField="ngModel" (blur)="onBlur(emailField)"
-    [class.field-error]="form.submitted && emailField.invalid">
-    <div [hidden]="!form.submitted || emailField.valid" class="alert alert-danger">
+    [class.field-error]=" emailField.invalid">
+    <div [hidden]=" emailField.valid ||emailField.untouched" class="alert alert-danger">
       Enter valid Email Id
     </div>
   </div>
@@ -34,9 +34,9 @@
     <label for="emailid">Contact Number:<br> </label>
     <input id="contactnumber" name="contactnumber" type="tel" class="form-control" [(ngModel)]='Employee.contactnumber'
     required #numberField="ngModel" (blur)="onBlur(numberField)"
-    [class.field-error]="form.submitted && numberField.invalid">
-    <div [hidden]="!form.submitted || numberField.valid" class="alert alert-danger">
-      Enter valid Contact Number
+    [class.field-error]=" numberField.invalid">
+    <div [hidden]="numberField.valid ||numberField.untouched" class="alert alert-danger">
+      Enter Contact Number
     </div>
   </div>
 
@@ -44,7 +44,13 @@
 
   <div class="h-100 d-inline-block" style="margin: 10px;">
     <label for="address">Address:<br></label>
-    <textarea class="form-control" id="address" name="address" rows="3" [(ngModel)]="Employee.address"></textarea>
+    <textarea class="form-control" id="address" name="address" rows="3" [(ngModel)]="Employee.address"
+    required #addressField="ngModel" (blur)="onBlur(addressField)"
+    [class.field-error]=" addressField.invalid"></textarea>
+    <div [hidden]="addressField.valid ||addressField.untouched" class="alert alert-danger">
+      Enter Address
+    </div>
+
   </div>
 
   <br>
@@ -55,7 +61,7 @@
     required #usernameField="ngModel" (blur)="onBlur(usernameField)"
     [class.field-error]="form.submitted && usernameField.invalid">
     <div [hidden]="!form.submitted || usernameField.valid" class="alert alert-danger">
-      Enter valid Username
+      Enter Username
     </div>
   </div>
 
@@ -64,9 +70,9 @@
     <label for="password">Password:<br> </label>
     <input id="password" name="password" type="password" class="form-control" [(ngModel)]='Employee.password'
     required #passwordField="ngModel" (blur)="onBlur(passwordField)"
-    [class.field-error]="form.submitted && passwordField.invalid">
-    <div [hidden]="!form.submitted || passwordField.valid" class="alert alert-danger">
-      Enter valid Password
+    [class.field-error]=" passwordField.invalid">
+    <div [hidden]=" passwordField.valid ||passwordField.untouched" class="alert alert-danger">
+      Enter Password
     </div>
   </div>
 
@@ -77,7 +83,7 @@
 
   <br>
   <p style="margin: 10px;"> Gender:</p>
-  <div style="margin: 10px;">
+  <div style="margin: 10px;" >
     <input id="1" name="gender" type="radio" value="male" [(ngModel)]='Employee.gender'>
     <label for="gender"> &nbsp; Male <br> </label>
     <br>
@@ -90,17 +96,23 @@
 
   <div class="h-100 d-inline-block" style="margin: 10px;">
     <label for="Qualification">Qualification:</label>
-    <select class="form-control" name="Qualification" id="Qualification" [(ngModel)]="Employee.Qualification">
+    <select class="form-control" name="Qualification" id="Qualification" [(ngModel)]="Employee.Qualification"
+    required #QualificationField="ngModel" (blur)="onBlur(QualificationField)"
+    [class.field-error]=" QualificationField.invalid">
+    <div [hidden]=" QualificationField.valid ||QualificationField.untouched" class="alert alert-danger"> </div>
+
       <option value="" disabled selected>--Select--</option>
       <option *ngFor="let type of Qualification | async"> {{type}}</option>
-
     </select>
   </div>
   <br>
 
   <div class="h-100 d-inline-block" style="margin: 10px;">
     <label for="Experience">Experience:</label>
-    <select class="form-control" name="Experience" id="Experience" [(ngModel)]="Employee.Experience">
+    <select class="form-control" name="Experience" id="Experience" [(ngModel)]="Employee.Experience"
+    required #ExperienceField="ngModel" (blur)="onBlur(QualificationField)"
+    [class.field-error]=" ExperienceField.invalid">
+    <div [hidden]=" ExperienceField.valid ||ExperienceField.untouched" class="alert alert-danger"> </div>
       <option value="" disabled selected>--Select--</option>
       <option *ngFor="let type of Experience | async">{{type}} </option>
 
@@ -115,6 +127,6 @@
     </div>
   </div>
   <br>
-  <button class="btn-default" style="margin: 10px;">Submit</button>
+  <button class="btn-default" style="margin: 10px;" type="submit"[disabled]="form.invalid">Submit</button>
 </form>
 
