@@ -1,0 +1,120 @@
+<form #form='ngForm' (ngSubmit)="onSubmit(form)" >
+
+  <div class="h-100 d-inline-block" style="margin: 10px;">
+    <label for="firstname">First Name:<br> </label>
+    <input id="firstname" name="firstname" class="form-control" [(ngModel)]='Employee.firstname'
+    required #nameField="ngModel" (blur)="onBlur(nameField)"
+    [class.field-error]="form.submitted && nameField.invalid">
+    <div [hidden]="!form.submitted || nameField.valid" class="alert alert-danger">
+      Enter valid first name
+    </div>
+  </div>
+  <br>
+ <div class="h-100 d-inline-block" style="margin: 10px;">
+    <label for="lastname">Last Name:<br> </label>
+    <input id="lastname" name="lastname" class="form-control" [(ngModel)]='Employee.lastname'
+    required #lastnameField="ngModel" (blur)="onBlur(lastnameField)"
+    [class.field-error]="form.submitted && lastnameField.invalid">
+    <div [hidden]="!form.submitted || lastnameField.valid" class="alert alert-danger">
+      Enter valid last name
+    </div>
+  </div>
+  <br>
+  <div class="h-100 d-inline-block"style="margin: 10px;">
+    <label for="emailid">Email:<br> </label>
+    <input id="emailid" name="emailid" type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" [(ngModel)]='Employee.emailid'
+    required #emailField="ngModel" (blur)="onBlur(emailField)"
+    [class.field-error]="form.submitted && emailField.invalid">
+    <div [hidden]="!form.submitted || emailField.valid" class="alert alert-danger">
+      Enter valid Email Id
+    </div>
+  </div>
+  <br>
+  <div class="h-100 d-inline-block" style="margin: 10px;">
+    <label for="emailid">Contact Number:<br> </label>
+    <input id="contactnumber" name="contactnumber" type="tel" class="form-control" [(ngModel)]='Employee.contactnumber'
+    required #numberField="ngModel" (blur)="onBlur(numberField)"
+    [class.field-error]="form.submitted && numberField.invalid">
+    <div [hidden]="!form.submitted || numberField.valid" class="alert alert-danger">
+      Enter valid Contact Number
+    </div>
+  </div>
+
+  <br>
+
+  <div class="h-100 d-inline-block" style="margin: 10px;">
+    <label for="address">Address:<br></label>
+    <textarea class="form-control" id="address" name="address" rows="3" [(ngModel)]="Employee.address"></textarea>
+  </div>
+
+  <br>
+
+  <div class="h-100 d-inline-block" style="margin: 10px;">
+    <label for="username">Username:<br> </label>
+    <input id="username" name="username" class="form-control" [(ngModel)]='Employee.username'
+    required #usernameField="ngModel" (blur)="onBlur(usernameField)"
+    [class.field-error]="form.submitted && usernameField.invalid">
+    <div [hidden]="!form.submitted || usernameField.valid" class="alert alert-danger">
+      Enter valid Username
+    </div>
+  </div>
+
+  <br>
+  <div class="h-100 d-inline-block" style="margin: 10px;">
+    <label for="password">Password:<br> </label>
+    <input id="password" name="password" type="password" class="form-control" [(ngModel)]='Employee.password'
+    required #passwordField="ngModel" (blur)="onBlur(passwordField)"
+    [class.field-error]="form.submitted && passwordField.invalid">
+    <div [hidden]="!form.submitted || passwordField.valid" class="alert alert-danger">
+      Enter valid Password
+    </div>
+  </div>
+
+  <div [hidden]="!postError"
+  class="alert alert-danger">
+  {{postErrorMessage}}
+  </div>
+
+  <br>
+  <p style="margin: 10px;"> Gender:</p>
+  <div style="margin: 10px;">
+    <input id="1" name="gender" type="radio" value="male" [(ngModel)]='Employee.gender'>
+    <label for="gender"> &nbsp; Male <br> </label>
+    <br>
+
+    <input id="2" name="gender" type="radio" value="female"  [(ngModel)]='Employee.gender'>
+    <label for="gender">&nbsp; Female <br> </label>
+
+  </div>
+  <br>
+
+  <div class="h-100 d-inline-block" style="margin: 10px;">
+    <label for="Qualification">Qualification:</label>
+    <select class="form-control" name="Qualification" id="Qualification" [(ngModel)]="Employee.Qualification">
+      <option value="" disabled selected>--Select--</option>
+      <option *ngFor="let type of Qualification | async"> {{type}}</option>
+
+    </select>
+  </div>
+  <br>
+
+  <div class="h-100 d-inline-block" style="margin: 10px;">
+    <label for="Experience">Experience:</label>
+    <select class="form-control" name="Experience" id="Experience" [(ngModel)]="Employee.Experience">
+      <option value="" disabled selected>--Select--</option>
+      <option *ngFor="let type of Experience | async">{{type}} </option>
+
+    </select>
+  </div>
+  <br>
+  <div class="h-100 d-inline-block" style="margin: 10px;">
+    <label for="Language">Coding Languages:</label>
+    <div *ngFor ="let type of _languagelist">
+      <div class="h-100 d-inline-block"><input type="checkbox" name="{{type.langname}}" (change)="onchange()"[(ngModel)]="type.isselected"></div>
+      &nbsp;<label>{{type.langname}}</label>
+    </div>
+  </div>
+  <br>
+  <button class="btn-default" style="margin: 10px;">Submit</button>
+</form>
+
